@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - mydb@localhost" uuid="c51cb0a8-5f41-4240-8e1e-f9282a5d4c10">
+    <database-info product="MySQL" version="5.7.15" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="mydb"/>
+      <table id="2" parent="1" name="mobile_food_facility_permit"/>
+      <column id="3" parent="2" name="locationid">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="4" parent="2" name="Applicant">
+        <data-type>text</data-type>
+      </column>
+      <column id="5" parent="2" name="FacilityType">
+        <data-type>text</data-type>
+      </column>
+      <column id="6" parent="2" name="cnn">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="7" parent="2" name="LocationDescription">
+        <data-type>text</data-type>
+      </column>
+      <column id="8" parent="2" name="Address">
+        <data-type>text</data-type>
+      </column>
+      <column id="9" parent="2" name="blocklot">
+        <data-type>text</data-type>
+      </column>
+      <column id="10" parent="2" name="block">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="11" parent="2" name="lot">
+        <data-type>text</data-type>
+      </column>
+      <column id="12" parent="2" name="permit">
+        <data-type>text</data-type>
+      </column>
+      <column id="13" parent="2" name="Status">
+        <data-type>text</data-type>
+      </column>
+      <column id="14" parent="2" name="FoodItems">
+        <data-type>text</data-type>
+      </column>
+      <column id="15" parent="2" name="X">
+        <data-type>double</data-type>
+      </column>
+      <column id="16" parent="2" name="Y">
+        <data-type>double</data-type>
+      </column>
+      <column id="17" parent="2" name="Latitude">
+        <data-type>double</data-type>
+      </column>
+      <column id="18" parent="2" name="Longitude">
+        <data-type>double</data-type>
+      </column>
+      <column id="19" parent="2" name="Schedule">
+        <data-type>text</data-type>
+      </column>
+      <column id="20" parent="2" name="dayshours">
+        <data-type>text</data-type>
+      </column>
+      <column id="21" parent="2" name="NOISent">
+        <data-type>text</data-type>
+      </column>
+      <column id="22" parent="2" name="Approved">
+        <data-type>text</data-type>
+      </column>
+      <column id="23" parent="2" name="Received">
+        <data-type>text</data-type>
+      </column>
+      <column id="24" parent="2" name="PriorPermit">
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="25" parent="2" name="ExpirationDate">
+        <data-type>text</data-type>
+      </column>
+      <column id="26" parent="2" name="Location">
+        <data-type>text</data-type>
+      </column>
+      <column id="27" parent="2" name="location_geo">
+        <data-type>geometry</data-type>
+      </column>
+    </database-model>
+  </data-source>
+</component>
