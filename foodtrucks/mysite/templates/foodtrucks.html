@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li class="active">Google Map</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+    <div class="page-content">
+        <div class="row" style="height:100%">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div id="map" class="col-xs-10" style="height: 500px"></div>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+{% endblock %}
+
+{% block inline_scripts %}
+<script>
+    var map;
+    var markers = [];
+    function initMap() {
+        var sanfrancisco = new google.maps.LatLng(37.7748713162388, -122.398531708276);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: sanfrancisco,
+            zoom: 15
+        });
+
+
+        map.addListener('click', function (event) {
+            alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+
+            clearMarkers();
+
+            $.post("{{ url_for('nearby') }}", {'lat':event.latLng.lat(), 'lng':event.latLng.lng()}).done(function(data) {
+                ret_lst = $.parseJSON(data);
+
+                for(var key in ret_lst)
+                {
+                    addMarker({lat: ret_lst[key]['latitude'], lng: ret_lst[key]['longitude']});
+                }
+            });
+
+        });
+
+    }
+
+    // Adds a marker to the map and push to the array.
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
+
+    // Shows any markers currently in the array.
+    function showMarkers() {
+        setMapOnAll(map);
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+    }
+</script>
+<script async defer
+        src="https://ditu.google.cn/maps/api/js?key=AIzaSyATDpX5RMTZb5mbEwr9upfQ-LnXXTWm7xE&callback=initMap"
+        type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"/>
+{% endblock %}
