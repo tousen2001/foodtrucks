@@ -40,7 +40,7 @@
             zoom: 15
         });
 
-        map.addListener('click', function (event) {
+        map.addListener('mousedown', function (event) {
             clearMarkers();
 
             $.post("{{ url_for('nearby') }}", {'lat':event.latLng.lat(), 'lng':event.latLng.lng()}).success(function(data) {
@@ -63,13 +63,12 @@
 
         marker.set('item', item);
 
-        marker.addListener('click', function() {
+        marker.addListener('mousedown', function() {
             $.get("/foodtrucks/" + marker.get('item').locationid).success(function (data) {
                 infowindow.setContent(generateContent(data));
 
                 infowindow.open(map, marker);
             });
-
         });
 
         markers.push(marker);
