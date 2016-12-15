@@ -16,20 +16,22 @@
         <div class="row" style="height:100%">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-                <div id="map" class="col-xs-10" style="height: 500px"></div>
-                <!-- PAGE CONTENT ENDS -->
+                <div id="map" style="height: 500px">
+                </div>
             </div><!-- /.col -->
         </div><!-- /.row -->
 
 
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
+
 {% endblock %}
 
 {% block inline_scripts %}
 <script>
     var map;
     var markers = [];
+    var infowindow;
     function initMap() {
         var sanfrancisco = new google.maps.LatLng(37.7748713162388, -122.398531708276);
 
@@ -38,32 +40,47 @@
             zoom: 15
         });
 
-
         map.addListener('click', function (event) {
-            alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
-
             clearMarkers();
 
-            $.post("{{ url_for('nearby') }}", {'lat':event.latLng.lat(), 'lng':event.latLng.lng()}).done(function(data) {
-                ret_lst = $.parseJSON(data);
-
-                for(var key in ret_lst)
-                {
-                    addMarker({lat: ret_lst[key]['latitude'], lng: ret_lst[key]['longitude']});
-                }
+            $.post("{{ url_for('nearby') }}", {'lat':event.latLng.lat(), 'lng':event.latLng.lng()}).success(function(data) {
+                data.forEach(function (item) {
+                    addMarker({lat: item['latitude'], lng: item['longitude']}, item);
+                })
             });
 
         });
 
+        infowindow = new google.maps.InfoWindow();
     }
 
     // Adds a marker to the map and push to the array.
-    function addMarker(location) {
+    function addMarker(location, item) {
         var marker = new google.maps.Marker({
             position: location,
             map: map
         });
+
+        marker.set('item', item);
+
+        marker.addListener('click', function() {
+            $.get("/foodtrucks/" + marker.get('item').locationid).success(function (data) {
+                infowindow.setContent(generateContent(data));
+
+                infowindow.open(map, marker);
+            });
+
+        });
+
         markers.push(marker);
+    }
+
+    function generateContent(data) {
+        var content = "<h3>" + data.applicant + "</h3>";
+        content += "<p>" + data.locationdescription + "</p>";
+        content += "<p>" + data.fooditems + "</p>";
+
+        return content;
     }
 
     // Sets the map on all markers in the array.
@@ -90,7 +107,7 @@
     }
 </script>
 <script async defer
-        src="https://ditu.google.cn/maps/api/js?key=AIzaSyATDpX5RMTZb5mbEwr9upfQ-LnXXTWm7xE&callback=initMap"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATDpX5RMTZb5mbEwr9upfQ-LnXXTWm7xE&callback=initMap"
         type="text/javascript"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"/>

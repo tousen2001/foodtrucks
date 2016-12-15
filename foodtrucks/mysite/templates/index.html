@@ -47,9 +47,13 @@
                 errorClass: 'help-block red'
             });
 
-            $('#length01').rules("add", {required:true, number:true});
-            $('#length02').rules("add", {required:true, number:true});
-            $('#length03').rules("add", {required:true, number:true});
+            $.validator.addMethod('gt', function (value, el, param) {
+                return value > param;
+            });
+
+            $('#length01').rules("add", {required:true, number:true, gt:0, messages: {gt:'please input a valid number'}});
+            $('#length02').rules("add", {required:true, number:true, gt:0, messages: {gt:'please input a valid number'}});
+            $('#length03').rules("add", {required:true, number:true, gt:0, messages: {gt:'please input a valid number'}});
         });
 
     </script>

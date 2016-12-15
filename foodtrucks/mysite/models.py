@@ -28,3 +28,6 @@ class MobileFoodFacilityPermit(db.Model):
     priorpermit = db.Column(db.Boolean(1), nullable=True)
     expirationdate = db.Column(db.String(500), nullable=True)
     location = db.Column(db.String(500), nullable=True)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}

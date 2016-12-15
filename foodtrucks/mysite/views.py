@@ -3,7 +3,7 @@ from .models import MobileFoodFacilityPermit
 from . import food_app
 from . import db
 from sqlalchemy import text
-import simplejson
+from flask import jsonify
 
 
 @food_app.route("/", methods=['GET', 'POST'])
@@ -38,7 +38,7 @@ def test():
 
     retlist = [dict(zip(row.keys(), row)) for row in result]
 
-    return simplejson.dumps(retlist)
+    return jsonify(retlist)
 
 
 @food_app.route("/api/nearby", methods=['POST'])
@@ -61,4 +61,4 @@ def nearby():
 
     retlist = [dict(zip(row.keys(), row)) for row in result]
 
-    return simplejson.dumps(retlist)
+    return jsonify(retlist)
