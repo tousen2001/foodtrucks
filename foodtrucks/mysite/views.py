@@ -11,18 +11,43 @@ def index():
     if request.method == 'GET':
         return render_template('index.html', id_menu=1)
     else:
-        lstlength = request.form.values()
-        icount = sum(lstlength.count(x) for x in lstlength)
+        icount = 0
+
+        lstlength = []
+        for x in request.form.values():
+            if x not in lstlength:
+                lstlength.append(x)
+            else:
+                icount += 1
+
         message=''
 
-        if icount == 3:
-            message = "<div class='alert-info'>This triangle is a scalene.</div>"
-        elif icount == 5:
-            message = "<div class='alert-info'>This triangle is a isosceles.</div>"
-        elif icount == 9:
-            message = "<div class='alert-info'>This triangle is a equilateral.</div>"
+        if icount == 0:
+            message = "<h1 class='alert-info'>This triangle is a scalene.</h1>"
+        elif icount == 1:
+            message = "<h1 class='alert-info'>This triangle is a isosceles.</h1>"
+        elif icount == 2:
+            message = "<h1 class='alert-info'>This triangle is a equilateral.</h1>"
 
-        return render_template('index.html', id_menu=1, message=message)
+        lstlength = request.form.values()
+        icount = sum(lstlength.count(x) for x in lstlength)
+
+        if icount == 3:
+            message = "<h1 class='alert-info'>This triangle is a scalene.</h1>"
+        elif icount == 5:
+            message = "<h1 class='alert-info'>This triangle is a isosceles.</h1>"
+        elif icount == 9:
+            message = "<h1 class='alert-info'>This triangle is a equilateral.</h1>"
+
+        solution1 = """solution 01<pre><code>for x in request.form.values():
+    if x not in lstlength:
+        lstlength.append(x)
+    else:
+        icount += 1</code></pre>"""
+
+        solution2 = """solution 02<pre><code>icount = sum(lstlength.count(x) for x in lstlength)</code></pre>"""
+
+        return render_template('index.html', id_menu=1, message=message, solution1=solution1, solution2=solution2)
 
 
 @food_app.route("/map")

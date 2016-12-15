@@ -21,9 +21,14 @@
                         <input name="length01" id="length01" class="input-small" type="text" placeholder="X" value="{{ request.form['length01'] }}">
                         <input name="length02" id="length02" class="input-small" type="text" placeholder="Y" value="{{ request.form['length02'] }}">
                         <input name="length03" id="length03" class="input-small" type="text" placeholder="Z" value="{{ request.form['length03'] }}">
+
                         <input type="submit" value="submit" />
                     </div>
                     {{ message|safe }}
+
+                    {{ solution1|safe }}
+
+                    {{ solution2|safe }}
                 </form>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
