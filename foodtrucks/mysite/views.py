@@ -11,43 +11,30 @@ def index():
     if request.method == 'GET':
         return render_template('index.html', id_menu=1)
     else:
-        icount = 0
+        icount1 = 0
+        icount2 = 0
 
-        lstlength = []
-        for x in request.form.values():
-            if x not in lstlength:
-                lstlength.append(x)
-            else:
-                icount += 1
+        icount1 = len(set(request.form.values()))
 
-        message=''
-
-        if icount == 0:
-            message = "<h1 class='alert-info'>This triangle is a scalene.</h1>"
-        elif icount == 1:
-            message = "<h1 class='alert-info'>This triangle is a isosceles.</h1>"
-        elif icount == 2:
-            message = "<h1 class='alert-info'>This triangle is a equilateral.</h1>"
+        message = {3: "<h1 class='alert-info'>This triangle is a scalene.</h1>",
+                   2: "<h1 class='alert-info'>This triangle is a isosceles.</h1>",
+                   1: "<h1 class='alert-info'>This triangle is a equilateral.</h1>",
+                   3: "<h1 class='alert-info'>This triangle is a scalene.</h1>",
+                   5: "<h1 class='alert-info'>This triangle is a isosceles.</h1>",
+                   9: "<h1 class='alert-info'>This triangle is a equilateral.</h1>"}
 
         lstlength = request.form.values()
-        icount = sum(lstlength.count(x) for x in lstlength)
+        icount2 = sum(lstlength.count(x) for x in lstlength)
 
-        if icount == 3:
-            message = "<h1 class='alert-info'>This triangle is a scalene.</h1>"
-        elif icount == 5:
-            message = "<h1 class='alert-info'>This triangle is a isosceles.</h1>"
-        elif icount == 9:
-            message = "<h1 class='alert-info'>This triangle is a equilateral.</h1>"
-
-        solution1 = """solution 01<pre><code>for x in request.form.values():
-    if x not in lstlength:
-        lstlength.append(x)
-    else:
-        icount += 1</code></pre>"""
+        solution1 = """solution 01
+<pre><code>
+icount = len(set(request.form.values())
+</code></pre>"""
 
         solution2 = """solution 02<pre><code>icount = sum(lstlength.count(x) for x in lstlength)</code></pre>"""
 
-        return render_template('index.html', id_menu=1, message=message, solution1=solution1, solution2=solution2)
+        return render_template('index.html', id_menu=1, message1=message[icount1], message2=message[icount2],
+                               solution1=solution1, solution2=solution2)
 
 
 @food_app.route("/map")
@@ -59,7 +46,7 @@ def map():
 def test():
     result = db.engine.connect().execute(text("""
         select * from mobile_food_facility_permit where locationid = :locationid
-    """), locationid = 762182)
+    """), locationid=762182)
 
     retlist = [dict(zip(row.keys(), row)) for row in result]
 
