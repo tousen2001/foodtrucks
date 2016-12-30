@@ -1,6 +1,5 @@
-from flask_restful import Resource, reqparse, abort
+from flask_restful import Resource, abort
 from .models import MobileFoodFacilityPermit
-from . import db
 from flask import jsonify
 
 

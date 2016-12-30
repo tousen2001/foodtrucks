@@ -38,19 +38,8 @@ icount = len(set(request.form.values())
 
 
 @food_app.route("/map")
-def map():
+def show_map():
     return render_template('foodtrucks.html', id_menu=2)
-
-
-@food_app.route("/api/test")
-def test():
-    result = db.engine.connect().execute(text("""
-        select * from mobile_food_facility_permit where locationid = :locationid
-    """), locationid=762182)
-
-    retlist = [dict(zip(row.keys(), row)) for row in result]
-
-    return jsonify(retlist)
 
 
 @food_app.route("/api/nearby", methods=['POST'])

@@ -68,6 +68,8 @@
                 infowindow.setContent(generateContent(data));
 
                 infowindow.open(map, marker);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert("The server is not avaliable. Please try again later.");
             });
         });
 
@@ -109,5 +111,4 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATDpX5RMTZb5mbEwr9upfQ-LnXXTWm7xE&callback=initMap"
         type="text/javascript"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"/>
 {% endblock %}
