@@ -4,8 +4,8 @@ from flask import jsonify
 
 
 class FoodTrucks(Resource):
-
-    def get(self, locationid):
+    @staticmethod
+    def get(locationid):
         retobj = MobileFoodFacilityPermit.query.filter(MobileFoodFacilityPermit.locationid == locationid).first()
         if retobj:
             return jsonify(retobj.as_dict())

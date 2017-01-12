@@ -19,7 +19,6 @@ def index():
         message = {3: "<h1 class='alert-info'>This triangle is a scalene.</h1>",
                    2: "<h1 class='alert-info'>This triangle is a isosceles.</h1>",
                    1: "<h1 class='alert-info'>This triangle is a equilateral.</h1>",
-                   3: "<h1 class='alert-info'>This triangle is a scalene.</h1>",
                    5: "<h1 class='alert-info'>This triangle is a isosceles.</h1>",
                    9: "<h1 class='alert-info'>This triangle is a equilateral.</h1>"}
 
